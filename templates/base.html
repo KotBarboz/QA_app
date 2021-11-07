@@ -15,6 +15,35 @@
   </head>
 
   <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url_for('index') }}">Questions & Answers</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li {% if not request.endpoint == "index" %}class="active"{% endif %}><a href="{{ url_for('index') }}">Home</a></li>
+              {% if not user %}
+            <li {% if request.endpoint == "login" %}class="active"{% endif %}><a href="{{ url_for('login') }}">Login</a></li>
+            <li {% if request.endpoint == "register" %}class="active"{% endif %}><a href="{{ url_for('register') }}">Register</a></li>
+              {% endif %}
+                {% if user and user['admin']==0 and user['expert']==0 %}
+            <li {% if request.endpoint == "question" %}class="active"{% endif %}><a href="{{ url_for('question') }}">Ask Question</a></li>
+                {% endif %}
+                {% if user and user['expert']==1 %}
+            <li {% if request.endpoint == "answer" %}class="active"{% endif %}><a href="{{ url_for('answer') }}">Answer Questions</a></li>
+                {% endif %}
+                {% if user and user['admin']==1 %}
+            <li {% if request.endpoint == "users" %}class="active"{% endif %}><a href="{{ url_for('users') }}">User Setup</a></li>
+                {% endif %}
+                {% if user %}
+            <li {% if request.endpoint == "logout" %}class="active"{% endif %}><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
   {% block body %}{% endblock %}
 
