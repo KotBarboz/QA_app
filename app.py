@@ -81,7 +81,7 @@ def login():
                 session['user'] = user_result['name']
                 return redirect(url_for('index'))
             else:
-                error = 'The password is incorrect!' 
+                error = 'The password is incorrect!'
         else:
             error = 'The password is incorrect!'
 
@@ -131,8 +131,8 @@ def ask():
     if not user:
         return redirect(url_for('login'))
 
-    if user['expert '] == 0:
-        return redirect(url_for('index'))
+    # if user['expert'] == 0:
+    #     return redirect(url_for('index'))
 
     db = get_db()
 
